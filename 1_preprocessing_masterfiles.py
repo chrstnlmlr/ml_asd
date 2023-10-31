@@ -1,5 +1,4 @@
 
-# info
 """
 input: OpenPose output (JSON) and classifications (xlsx)
 output: masterfiles (csv) masterfile_sequences (csv)

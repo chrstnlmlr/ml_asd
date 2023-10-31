@@ -1,8 +1,7 @@
-# info
 """
 input:  df_cleaned (csv) from 3_preprocessing_normalizing_and_cleaning
         json_df (csv) from 2_preprocessing_json_loader
-output: dataframes (train/test split) as input for LSTM models 
+output: dataframes (train/test split) as input for LSTM models
 """
 
 import os
@@ -23,7 +22,7 @@ def person_split_column(person_split, data, folds):
     for fold in range(folds):
         ps_fold = person_split[person_split['fold'] == fold]
         ps_fold_dropped = ps_fold.drop(['fold'], axis = 1)
-        ps_fold_dropped.rename(columns={'split':'ps_fold_'+str(fold)}, inplace=True) 
+        ps_fold_dropped.rename(columns={'split':'ps_fold_'+str(fold)}, inplace=True)
         data_new = pd.merge(data_new, ps_fold_dropped, left_on='Proband', right_on='person', how='inner')
     return data_new
 
@@ -41,7 +40,7 @@ def select_subset_no_man(df):
     return df_subset
 
 def balance_subset_no_man(subset_man, subset_no_man):
-    number_man_sequences = subset_man.groupby(["video_id"]).sum().shape[0] 
+    number_man_sequences = subset_man.groupby(["video_id"]).sum().shape[0]
     df_video_id = subset_no_man.groupby(["video_id"], as_index=False).first()
     df_video_id_random = df_video_id.sample(n=number_man_sequences, random_state=42)
     video_id_random = df_video_id_random['video_id']
@@ -50,7 +49,7 @@ def balance_subset_no_man(subset_man, subset_no_man):
 
 def shuffle_sequences(a, sequence_length):
     b = a.set_index(np.arange(len(a)) // sequence_length, append=True).swaplevel(0, 1)
-    return pd.concat([b.xs(i) for i in np.random.permutation(range(len(a) // sequence_length))])   
+    return pd.concat([b.xs(i) for i in np.random.permutation(range(len(a) // sequence_length))])
 
 def concat_shuffle(df_1, df_2):
     df = concat_df(df_1, df_2)
@@ -71,13 +70,13 @@ def kfold_split(df, n_splits=3):
         test = df[(df['video_id'].isin(test_inds))]
         trains.append(train)
         tests.append(test)
-    return trains, tests    
+    return trains, tests
 
 def create_sets_RS_cv(data_new, subset):
     train_sets_RS = []
     test_sets_RS = []
     subset_man = select_subset_man(data_new, subset)
-    subset_no_man = select_subset_no_man(data_new)   
+    subset_no_man = select_subset_no_man(data_new)
     subset_no_man_balanced = balance_subset_no_man(subset_man, subset_no_man)
     trains_man, tests_man = kfold_split(subset_man)
     trains_no_man, tests_no_man = kfold_split(subset_no_man_balanced)
@@ -90,22 +89,22 @@ def create_sets_RS_cv(data_new, subset):
     for i, (x,y) in enumerate(zip(train_sets_RS,test_sets_RS)):
         print('fold: ' + str(i) + ' train_man_sequences: ' + str(x['Manierismus'].sum()/x['Manierismus'].size*100))
         print('fold: ' + str(i) + ' test_man_sequences: ' + str(y['Manierismus'].sum()/y['Manierismus'].size*100))
-    return train_sets_RS, test_sets_RS  
+    return train_sets_RS, test_sets_RS
 
 def select_subset_person_split(df, column_name, set_no):
     df_subset = df[(df[column_name] == set_no)]
-    return df_subset    
+    return df_subset
 
 def create_sets_PS_cv(data_new, subset, folds):
     train_sets_PS = []
     test_sets_PS = []
     for fold in range(folds):
-        train_set_PS_unbalanced = select_subset_person_split(data_new, 'ps_fold_'+str(fold), 0) 
-        test_set_PS = select_subset_person_split(data_new, 'ps_fold_'+str(fold), 1) 
+        train_set_PS_unbalanced = select_subset_person_split(data_new, 'ps_fold_'+str(fold), 0)
+        test_set_PS = select_subset_person_split(data_new, 'ps_fold_'+str(fold), 1)
         train_set_PS_unbalanced_man = select_subset_man(train_set_PS_unbalanced, subset)
         test_set_PS_man = select_subset_man(test_set_PS, subset)
-        train_set_PS_unbalanced_no_man = select_subset_no_man(train_set_PS_unbalanced)  
-        test_set_PS_no_man = select_subset_no_man(test_set_PS) 
+        train_set_PS_unbalanced_no_man = select_subset_no_man(train_set_PS_unbalanced)
+        test_set_PS_no_man = select_subset_no_man(test_set_PS)
         train_set_PS_balanced_no_man = balance_subset_no_man(train_set_PS_unbalanced_man, train_set_PS_unbalanced_no_man)
         test_set_PS_balanced_no_man = balance_subset_no_man(test_set_PS_man, test_set_PS_no_man)
         train_set_PS = concat_shuffle(train_set_PS_unbalanced_man, train_set_PS_balanced_no_man)

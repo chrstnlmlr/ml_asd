@@ -1,5 +1,3 @@
-
-# info
 """
 input: OpenPose output (JSON)
 output: dataframe with all JSON data from OpenPose (csv)
@@ -16,9 +14,9 @@ import time
 base_path = "//Users/christian/Library/Mobile Documents/com~apple~CloudDocs/promotion/github_ml_ass/"
 json_path = "/Users/christian/promotion/data/JSON_OpenPose_ID_Auto"
 
-body_parts = ["Nose", "Neck", "Shoulder", "Elbow", "RWrist", "LShoulder", "LElbow", 
-              "LWrist", "MidHip", "RHip", "RKnee", "RAnkle", "LHip", "LKnee", 
-              "LAnkle", "REye", "LEye", "REar", "LEar", "LBigToe", "LSmallToe", 
+body_parts = ["Nose", "Neck", "Shoulder", "Elbow", "RWrist", "LShoulder", "LElbow",
+              "LWrist", "MidHip", "RHip", "RKnee", "RAnkle", "LHip", "LKnee",
+              "LAnkle", "REye", "LEye", "REar", "LEar", "LBigToe", "LSmallToe",
               "LHeel", "RBigToe", "RSmallToe", "RHeel"]
 
 value_names = ["x", "y", "acc"]
@@ -48,12 +46,12 @@ def load_json(json_files):
                 flat = picker['people'].flatten().get()
                 df = pd.DataFrame(flat)
             except:
-                df = pd.DataFrame(np.zeros((1, 76))) 
+                df = pd.DataFrame(np.zeros((1, 76)))
             df['filename'] = file
             df_set = df_set.append(df)
             json_data.close
-    df_set.columns = column_names    
-    return df_set    
+    df_set.columns = column_names
+    return df_set
 
 def json_loader(json_files):
     # json_loader: split JSON_files into 10 sets
@@ -75,4 +73,3 @@ json_df = json_loader(json_files)
 # save data
 data_folder = os.path.join(base_path, "data/csv")
 json_df.to_csv(os.path.join(data_folder, "json_df.csv"), sep=';', index=False)
-

@@ -1,9 +1,8 @@
 
-# info
 """
 input:  masterfile_sequences (csv) from 1_preprocessing_masterfiles
         json_df (csv) from 2_preprocessing_json_loader
-output: df_cleaned (csv) with cleaned JSON-data (less body parts, high accuracy, centralized) 
+output: df_cleaned (csv) with cleaned JSON-data (less body parts, high accuracy, centralized)
 """
 
 import os
@@ -20,21 +19,21 @@ np.random.seed(42)
 accuracy_threshold = 0.6
 width = 1920
 heigth = 1080
-max_width_heigth = max(width, heigth) 
+max_width_heigth = max(width, heigth)
 max_z = 0
 
-body_parts_drop = ["Nose", "REye", "LEye", "REar", "LEar", "LBigToe", "LSmallToe", "LHeel", 
-                   "RBigToe", "RSmallToe", "RHeel", "Neck", "MidHip", "RHip", "RKnee", "RAnkle", 
-                   "LHip", "LKnee", "LAnkle", "REye", "LEye", "REar", "LEar", "LBigToe", 
+body_parts_drop = ["Nose", "REye", "LEye", "REar", "LEar", "LBigToe", "LSmallToe", "LHeel",
+                   "RBigToe", "RSmallToe", "RHeel", "Neck", "MidHip", "RHip", "RKnee", "RAnkle",
+                   "LHip", "LKnee", "LAnkle", "REye", "LEye", "REar", "LEar", "LBigToe",
                    "LSmallToe", "LHeel", "RBigToe", "RSmallToe", "RHeel"]
 
 body_parts_arms = ["Shoulder", "Elbow", "RWrist", "LShoulder", "LElbow", "LWrist"]
 
 column_names_drop = []
 for prefix in ['person_id', 'filename', 'Flattern', 'Klatschen', 'Hüpfen', 'Manierismus', 'Fraglich', 'Hand',
-               'Bein', 'Zehenspitzengang', 'Körper', 'Selbstverletzung', 'still', 'schnell', 'Proband', 
+               'Bein', 'Zehenspitzengang', 'Körper', 'Selbstverletzung', 'still', 'schnell', 'Proband',
                'video_id', 'Dateiname', 'Sequenz_Nr', 'Video', 'clap_jump', 'clap_only', 'filename_short',
-               'flap_clap', 'flap_clap_jump', 'flap_jump', 'flap_only', 'frame_no', 'hand_only', 'jump_only', 
+               'flap_clap', 'flap_clap_jump', 'flap_jump', 'flap_only', 'frame_no', 'hand_only', 'jump_only',
                'nothing', 'other']:
     for i in range(5):
         column_name = prefix + str('_') + str(i)
@@ -50,14 +49,14 @@ df_persons = []
 
 def drop_body_parts(df, body_parts_drop):
     df = df.loc[:,~df.columns.str.startswith(tuple(body_parts_drop))]
-    return df   
+    return df
 
 def accuracy_cleaning(df, threshold=accuracy_threshold):
     df = df[(df['Shoulder_acc'] >= threshold) & (df['Elbow_acc'] >= threshold)
             & (df['RWrist_acc'] >= threshold) & (df['LShoulder_acc'] >= threshold)
             & (df['LElbow_acc'] >= threshold) & (df['LWrist_acc'] >= threshold)]
-    return df   
-      
+    return df
+
 def centralize(z, max_z, min_z=0, max_x_y=max_width_heigth):
     middle = (max_z + min_z) / 2
     scale = max_width_heigth
@@ -101,7 +100,7 @@ def keep_sequences(df_persons, sequence_length):
         video_ids_full = video_ids_full_sequence['video_id']
         video_ids_full = video_ids_full.to_frame()
         video_ids_full.columns = ['video_id_full']
-        df_person_full = pd.merge(video_ids_full, df, left_on='video_id_full', 
+        df_person_full = pd.merge(video_ids_full, df, left_on='video_id_full',
                         right_on='video_id', how='left').drop('video_id_full', axis=1)
         df_person_full['id_filename'] = df_person_full['video_id'].astype(str)+'_'+df_person_full['filename'].astype(str)
         df_person_full = df_person_full.set_index('id_filename')
@@ -114,12 +113,12 @@ def keep_sequences(df_persons, sequence_length):
 def clean_data(df_full, column_names_drop):
     columns = ['video_id', 'Proband', 'filename', 'filename_short', 'Dateiname', 'frame_no', 'Sequenz_Nr', 'Video']
     for col in columns:
-        df_full[col] = 0    
+        df_full[col] = 0
         for i in range(5):
             condition = df_full[f'{col}_{i}'] == 0
             df_full[col] = np.where(condition, df_full[col], df_full[f'{col}_{i}'])
-    for prefix in ['Flattern', 'Klatschen', 'Hüpfen', 'Manierismus', 'Fraglich', 'Hand', 'Bein', 'Zehenspitzengang', 'Körper', 
-                   'Selbstverletzung', 'still', 'schnell', 'clap_jump', 'clap_only', 'flap_clap', 'flap_clap_jump', 'flap_jump', 
+    for prefix in ['Flattern', 'Klatschen', 'Hüpfen', 'Manierismus', 'Fraglich', 'Hand', 'Bein', 'Zehenspitzengang', 'Körper',
+                   'Selbstverletzung', 'still', 'schnell', 'clap_jump', 'clap_only', 'flap_clap', 'flap_clap_jump', 'flap_jump',
                    'flap_only', 'hand_only', 'jump_only', 'nothing', 'other']:
         columns = [f'{prefix}_{i}' for i in range(5)]
         if columns[0] in df_full.columns:
@@ -133,10 +132,10 @@ masterfile_sequences = pd.read_csv(os.path.join(data_folder, "masterfile_sequenc
 json_df = pd.read_csv(os.path.join(data_folder, "json_df.csv"), sep=';')
 # merge with sequences
 df_merged = pd.merge(json_df, masterfile_sequences, left_on='filename', right_on='filename', how='inner')
-# drop body parts  
+# drop body parts
 df_arms = drop_body_parts(df_merged, body_parts_drop)
 # drop accuracy below threshold
-df_arms_high_acc = accuracy_cleaning(df_arms) 
+df_arms_high_acc = accuracy_cleaning(df_arms)
 # centralize x and y values
 df_arms_centered_x = apply_centralize_x(df_arms_high_acc, width)
 df_arms_centered = apply_centralize_y(df_arms_centered_x, heigth)
