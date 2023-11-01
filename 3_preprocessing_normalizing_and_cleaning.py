@@ -10,9 +10,8 @@ import numpy as np
 import pandas as pd
 import itertools
 
-base_path = "//Users/christian/Library/Mobile Documents/com~apple~CloudDocs/promotion/github_ml_ass/"
+base_path = "project_path"
 os.chdir(base_path)
-json_path = "/Users/christian/promotion/data/JSON_OpenPose_ID_Auto"
 
 sequence_length = 15
 np.random.seed(42)

@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold
 
-base_path = "//Users/christian/Library/Mobile Documents/com~apple~CloudDocs/promotion/github_ml_ass/"
+base_path = "project_path"
 os.chdir(base_path)
 
 sequence_length = 15

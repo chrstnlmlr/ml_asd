@@ -11,8 +11,8 @@ from cherrypicker import CherryPicker
 import itertools
 import time
 
-base_path = "//Users/christian/Library/Mobile Documents/com~apple~CloudDocs/promotion/github_ml_ass/"
-json_path = "/Users/christian/promotion/data/JSON_OpenPose_ID_Auto"
+base_path = "project_path"
+json_path = "path_to_JSON_files"
 
 body_parts = ["Nose", "Neck", "Shoulder", "Elbow", "RWrist", "LShoulder", "LElbow",
               "LWrist", "MidHip", "RHip", "RKnee", "RAnkle", "LHip", "LKnee",

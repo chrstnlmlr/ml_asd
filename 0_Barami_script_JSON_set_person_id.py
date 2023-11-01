@@ -113,6 +113,6 @@ def set_person_id(json_src, n=5, print_interval=10000):
         if i % print_interval == 0:
             print(f'frame: {i}')
 
-json_src = 'V:/Unterstudie4 ML Studie/JSON_OpenPose_ID_Auto'
+json_src = 'path_to_JSON_files'
 
 set_person_id(json_src,3,1000)

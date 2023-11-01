@@ -8,9 +8,9 @@ import os
 import pandas as pd
 import numpy as np
 
-base_path = "//Users/christian/Library/Mobile Documents/com~apple~CloudDocs/promotion/github_ml_ass/"
-json_path = "/Users/christian/promotion/data/JSON_OpenPose_ID_Auto"
-classification_filepath = os.path.join(base_path, "data/coding/BOSCC_coding.xlsm")
+base_path = "project_path"
+json_path = "path_to_JSON_files"
+classification_filepath = os.path.join(base_path, "path_to_classification.xlsx")
 
 sequence_length = 15
 np.random.seed(42)
