@@ -67,15 +67,15 @@ Train test split with 3-fold cross-validation is performed with two different sp
 
 Hyperparameter tuning was performed with [keras_tuner](https://github.com/keras-team/keras-tuner):
 
-- [5_random_split_tuner](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_RS_tuner.py)
-- [5_person_split_tuner](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_PS_tuner.py)
+- [5_random_split_tuner](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_RS_tuner.ipynb)
+- [5_person_split_tuner](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_PS_tuner.ipynb)
 
 ### cross-validation
 
 3-folds cross-validation was performed to test the model's generalization ability:
 
-- [5_random_split_cv](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_RS.py)
-- [5_person_split_cv](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_PS.py)
+- [5_random_split_cv](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_RS.ipynb)
+- [5_person_split_cv](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_PS.ipynb)
 
 ## License
 
