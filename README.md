@@ -1,6 +1,6 @@
 # multi-label classification of autistic mannerisms by machine learning
 
-The following code allows you to reproduce the training and test of an algorithm for the classification of autistic mannerisms in video data as published in this [article](Link_to_paper)
+The following code allows you to reproduce the training and test of an algorithm for the classification of autistic mannerisms in video data as published in this [article in preparation].
 
 In the absence of video data, you can use the data provided on this page to test the algorithm's performance and start with [hyperparametertuning](#hyperparametertuning) or [classification](#classification).
 
@@ -8,7 +8,7 @@ In the absence of video data, you can use the data provided on this page to test
 
 ### Video codings
 
-The video files for training and test of the algorithm needs to be labeled according to a given coding scheme as described in the [paper](Link_to_paper). The length can be variable. Every single video sequence should contain either no mannerism, one mannerism, or a combination of different mannerisms. We used the software [Interact from Mangold](https://www.mangold-international.com/de/produkte/software/interact-videographie-software.html) for the video editing and saved the codings in an Excel spreadsheet with the name of the video file as the primary key (one row for each video file).
+The video files for training and test of the algorithm needs to be labeled according to a given coding scheme as described in the [article in preparation]. The length can be variable. Every single video sequence should contain either no mannerism, one mannerism, or a combination of different mannerisms. We used the software [Interact from Mangold](https://www.mangold-international.com/de/produkte/software/interact-videographie-software.html) for the video editing and saved the codings in an Excel spreadsheet with the name of the video file as the primary key (one row for each video file).
 
 ### OpenPose Installation
 
