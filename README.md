@@ -43,7 +43,7 @@ The next script will split all video files into 15-frame sequences. The algorith
 
 ### JSON loader
 
-This script converts the OpenPose JSON files (one file per frame, in our case about 1.7 million) to a single CSV file.  
+This script converts the OpenPose JSON files (one file per frame, in our case nearly 2 million) to a single CSV file.  
 
   [2_json_loader](https://github.com/chrstnlmlr/ml_ass/blob/main/2_preprocessing_json_loader.py)
 
