@@ -2,7 +2,7 @@
 
 The following code allows you to reproduce the training and test of an algorithm for the classification of autistic mannerisms in video data as published in this [article in preparation].
 
-In the absence of video data, you can use the data provided on this page to test the algorithm's performance and start with [hyperparametertuning](#hyperparametertuning) or [classification](#classification).
+In the absence of video data, you can use the data provided on request to test the algorithm's performance and run [Nested cross-validation](#nested-cross-validation) or the final model prediction.
 
 ## Prerequisites
 
@@ -53,29 +53,13 @@ This script centralizes the x- and y-coordinates to values between 0 and 1 and d
 
   [3_centralizing](https://github.com/chrstnlmlr/ml_ass/blob/main/3_preprocessing_normalizing_and_cleaning.py)
 
-### Train test split
-
-Train test split with 3-fold cross-validation is performed with two different splitting techniques:
-- Random split (splitting all sequences randomly)
-- Person split (split sequences by person, so that the algorithm can learn to identify mannerisms in new, unknown persons)
-
-  [4_train_test_split](https://github.com/chrstnlmlr/ml_ass/blob/main/4_preprocessing_train_test_split_cross_validation.py)
-
 ## Classification
 
-### hyperparametertuning
+### Nested cross-validation
 
-Hyperparameter tuning was performed with [keras_tuner](https://github.com/keras-team/keras-tuner):
+Nested cross-validation was performed to test the model's generalization ability. [Keras Hyperband Tuner](https://github.com/keras-team/keras-tuner) was used for Hyperparameter tuning and long short-term memory (LSTM) was utilized for multi-label classification.
 
-- [5_random_split_tuner](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_RS_tuner.ipynb)
-- [5_person_split_tuner](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_PS_tuner.ipynb)
-
-### cross-validation
-
-3-folds cross-validation was performed to test the model's generalization ability:
-
-- [5_random_split_cv](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_RS.ipynb)
-- [5_person_split_cv](https://github.com/chrstnlmlr/ml_ass/blob/main/5_lstm_cv_flap_jump_PS.ipynb)
+  [4_nested_cross_validation](https://github.com/chrstnlmlr/ml_ass/blob/main/4_lstm_cv_stratifiedgroupkfold.py)
 
 ## License
 
