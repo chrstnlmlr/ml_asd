@@ -61,6 +61,18 @@ Nested cross-validation was performed to test the model's generalization ability
 
   [4_nested_cross_validation](https://github.com/chrstnlmlr/ml_ass/blob/main/4_lstm_cv_stratifiedgroupkfold.py)
 
+### Prediction
+
+Two sequences were used to demonstrate prediction of the algorithm.
+
+  [5_prediction](https://github.com/chrstnlmlr/ml_ass/blob/main/5_prediction.py)
+
+### Open CV video overlays
+
+A OpenCV script was used to create a overlay of the prediction in the two video sequences for demonstration purpose.
+
+  [6_openCV_overlays](https://github.com/chrstnlmlr/ml_ass/blob/main/6_openCV_overlays.py)
+
 ## License
 
 This work is licensed under CC BY-NC-SA 4.0 [Creative Commons](http://creativecommons.org/licenses/by-nc-sa/4.0/)
